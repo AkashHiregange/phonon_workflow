@@ -1,3 +1,5 @@
+import os
+import shutil
 
 from ase.phonons import Phonons
 from phonopy import Phonopy
@@ -32,7 +34,15 @@ supercells = phonon.supercells_with_displacements
 print(supercells[0])
 
 for ind, sup in enumerate(supercells):
-    write_crystal_structure(f"geomtry_{ind}.in", supercells[ind], interface_mode='aims')
+    write_crystal_structure(f"geometry_{ind+1}.in", supercells[ind], interface_mode='aims')
+    directory = f"disp_{ind+1}"
+    parent_dir = os.getcwd()
+    path = os.path.join(parent_dir, directory)
+    try:
+        os.mkdir(path)
+        shutil.move(f'{parent_dir}/geometry_{ind+1}.in', path + "/geometry.in")
+    except Exception as e:
+        print('error', e)
 
 
 
