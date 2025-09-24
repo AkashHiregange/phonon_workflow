@@ -84,27 +84,27 @@ def creating_files_and_directories(atoms_object, charges, moments):
         path_final = os.path.join(parent_dir, directory)
         if os.path.exists(path_final):
             shutil.rmtree(path_final)
-            os.mkdir(path_final)
-            atoms.write(path_final + '/geometry.in')
-            shutil.copy(parent_dir + '/input.py', path_final + '/input.py')
-            shutil.copy(parent_dir + '/submission.script', path_final + '/submission.script')
-            os.chdir(path_final)
-            try:
-                os.system("qsub submission.script")
-            except:
-                print(' ')
-            os.chdir(parent_dir)
-        else:
-            os.mkdir(path_final)
-            atoms.write(path_final + '/geometry.in')
-            shutil.copy(parent_dir + '/input.py', path_final + '/input.py')
-            shutil.copy(parent_dir + '/submission.script', path_final + '/submission.script')
-            os.chdir(path_final)
-            try:
-                os.system("qsub submission.script")
-            except:
-                print(' ')
-            os.chdir(parent_dir)
+        os.mkdir(path_final)
+        atoms.write(path_final + '/geometry.in')
+        shutil.copy(parent_dir + '/input.py', path_final + '/input.py')
+        shutil.copy(parent_dir + '/submission.script', path_final + '/submission.script')
+        os.chdir(path_final)
+        # try:
+        #     os.system("qsub submission.script")
+        # except:
+        #     print(' ')
+        #     os.chdir(parent_dir)
+        # else:
+        #     os.mkdir(path_final)
+        #     atoms.write(path_final + '/geometry.in')
+        #     shutil.copy(parent_dir + '/input.py', path_final + '/input.py')
+        #     shutil.copy(parent_dir + '/submission.script', path_final + '/submission.script')
+        #     os.chdir(path_final)
+        #     try:
+        #         os.system("qsub submission.script")
+        #     except:
+        #         print(' ')
+        #     os.chdir(parent_dir)
         os.remove(f"geometry_{ind+1:03}.in")
 
 
