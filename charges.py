@@ -86,9 +86,9 @@ def creating_files_and_directories(atoms_object, charges, moments):
             shutil.rmtree(path_final)
         os.mkdir(path_final)
         atoms.write(path_final + '/geometry.in')
-        shutil.copy(parent_dir + '/input.py', path_final + '/input.py')
-        shutil.copy(parent_dir + '/submission.script', path_final + '/submission.script')
-        os.chdir(path_final)
+        #shutil.copy(parent_dir + '/input.py', path_final + '/input.py')
+        #shutil.copy(parent_dir + '/submission.script', path_final + '/submission.script')
+        os.chdir(parent_dir)
         # try:
         #     os.system("qsub submission.script")
         # except:
