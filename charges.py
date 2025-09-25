@@ -19,7 +19,7 @@ def make_matrix(atoms_object):
     :param atoms_object:
     :return:
     '''
-    num1 = 2
+    num1 = 1
     num2 = 0.01
 
     atoms_object.write('geometry.in')
@@ -64,7 +64,7 @@ def get_charges_and_moments(determinant, atoms_object):
     return moments2, charges2
 
 
-def creating_files_and_directories(atoms_object, charges, moments):
+def creating_files_and_directories(atoms_object, supercells, charges, moments):
     '''
 
     :param atoms_object:
@@ -108,11 +108,11 @@ def creating_files_and_directories(atoms_object, charges, moments):
         os.remove(f"geometry_{ind+1:03}.in")
 
 
-crys = bulk('Al', 'fcc', a=4.121)
-
-det, supercells = make_matrix(crys)
-moments, charges = get_charges_and_moments(det,crys)
-print(moments)
-
-creating_files_and_directories(crys, charges, moments)
+# crys = bulk('Al', 'fcc', a=4.121)
+#
+# det, supercells = make_matrix(crys)
+# moments, charges = get_charges_and_moments(det,crys)
+# print(moments)
+#
+# creating_files_and_directories(crys, charges, moments)
 
