@@ -19,7 +19,7 @@ def make_matrix(atoms_object):
     :param atoms_object:
     :return:
     '''
-    num1 = 2
+    num1 = 1
     num2 = 0.01
 
     atoms_object.write('geometry.in')
