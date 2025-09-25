@@ -33,6 +33,11 @@ def make_matrix(atoms_object):
     phonon.generate_displacements(distance=num2)
     supercells = phonon.supercells_with_displacements
     phonon.save('phonopy_disp.yaml')
+    '''
+    IT IS IMPORTANT TO CREATE A phonopy_disp.yaml file to create force sets later.
+    Furthermore, the disp yaml file should include details of the calculator used, the displacement, and the supercell 
+    dimension. This is done below by reading the .yaml file and dumping the relevant info
+    '''
     import yaml
     from yaml import load
     from yaml import CLoader as Loader
