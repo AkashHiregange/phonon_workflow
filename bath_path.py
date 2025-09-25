@@ -59,7 +59,7 @@ def get_band_conf(atoms):
     #         f'MESH = 16 16 16\n')
 
 def get_thermal_conf(atoms):
-    f = open('band.conf', 'w')
+    f = open('thermal.conf', 'w')
     f.write(f'TPROP =.TRUE.\n'
             f'MESH = 16 16 16\n')
     f.close()
