@@ -1,3 +1,4 @@
+import fontTools.ttx
 from ase.io import read, write
 import os
 from ase import Atoms
@@ -10,7 +11,7 @@ from ase.dft.kpoints import bandpath
 
 # atoms = read('geometry.in')
 
-def get_band(atoms):
+def get_band_conf(atoms):
 
     lat1 = atoms.cell.bandpath()
     band_label = []
@@ -53,12 +54,20 @@ def get_band(atoms):
     f.write(f'BAND = {band_final}\n'
             f'BAND_LABELS = {band_label_final}\n'
             f'BAND_POINTS = 101\n')
+    f.close()
     # f.write(f'TPROP =.TRUE.\n'
     #         f'MESH = 16 16 16\n')
+
+def get_thermal_conf(atoms):
+    f = open('band.conf', 'w')
+    f.write(f'TPROP =.TRUE.\n'
+            f'MESH = 16 16 16\n')
+    f.close()
 
 def os_commands():
     os.system("phonopy -f disp_*/aims.out")
     os.system("phonopy -p -s band.conf")
+    os.system("phonopy -p -s thermal.conf")
 
 
 # get_band(atoms)
