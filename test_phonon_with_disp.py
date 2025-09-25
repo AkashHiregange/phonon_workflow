@@ -88,7 +88,7 @@ def creating_files_and_directories(atoms_object, charges, moments):
         parent_dir = os.getcwd()
         path_final = os.path.join(parent_dir, directory)
         if os.path.exists(path_final):
-            shutil.rmtree(path_final)
+            shutil.rmtree(path_final) # this leads to access error on windows. Find an elegant workaround
         os.mkdir(path_final)
         atoms.write(path_final + '/geometry.in')
         #shutil.copy(parent_dir + '/input.py', path_final + '/input.py')
