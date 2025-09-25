@@ -8,7 +8,7 @@ from ase.phonons import Phonons
 from ase.io.trajectory import Trajectory
 from ase.dft.kpoints import bandpath
 
-atoms = read('geometry.in')
+# atoms = read('geometry.in')
 
 def get_band(atoms):
 
@@ -17,14 +17,14 @@ def get_band(atoms):
     band = []
     for sp in lat1.path:
         if sp == 'G':
-            band_label.append('$\Gamma$')
+            band_label.append('$\\Gamma$')
         elif sp.isnumeric():
             band_label[-1] = band_label[-1] + sp
         else:
             band_label.append(sp)
     for sp in band_label:
         if sp != ',':
-            if sp == '$\Gamma$':
+            if sp == '$\\Gamma$':
                 band.append('0 0 0')
             else:
                 cor1 = lat1.special_points[sp][0]
@@ -59,5 +59,5 @@ def get_band(atoms):
 #     os.system("phonopy -p -s band.conf")
 
 
-get_band(atoms)
+# get_band(atoms)
 # os_commands()
