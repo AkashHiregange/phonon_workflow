@@ -1,3 +1,4 @@
 .idea/
 disp_*/
 phonopy_disp.yaml
+__pycache__/

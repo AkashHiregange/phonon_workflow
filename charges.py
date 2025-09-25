@@ -106,7 +106,8 @@ def creating_files_and_directories(atoms_object, supercells, charges, moments):
         #         print(' ')
         #     os.chdir(parent_dir)
         os.remove(f"geometry_{ind+1:03}.in")
-
+import sys
+print(sys.path)
 
 # crys = bulk('Al', 'fcc', a=4.121)
 #
