@@ -52,11 +52,13 @@ def get_band(atoms):
     f = open('band.conf', 'w')
     f.write(f'BAND = {band_final}\n'
             f'BAND_LABELS = {band_label_final}\n'
-            f'BAND_POINTS = 101')
+            f'BAND_POINTS = 101\n')
+    # f.write(f'TPROP =.TRUE.\n'
+    #         f'MESH = 16 16 16\n')
 
-# def os_commands():
-#     os.system("phonopy -f disp-???/aims.out")
-#     os.system("phonopy -p -s band.conf")
+def os_commands():
+    os.system("phonopy -f disp_*/aims.out")
+    os.system("phonopy -p -s band.conf")
 
 
 # get_band(atoms)
