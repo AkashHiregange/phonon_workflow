@@ -54,10 +54,10 @@ def get_band(atoms):
             f'BAND_LABELS = {band_label_final}\n'
             f'BAND_POINTS = 101')
 
-def os_commands():
-    os.system("phonopy -f disp-???/aims.out")
-    os.system("phonopy -p -s band.conf")
+# def os_commands():
+#     os.system("phonopy -f disp-???/aims.out")
+#     os.system("phonopy -p -s band.conf")
 
 
 get_band(atoms)
-os_commands()
+# os_commands()
