@@ -91,7 +91,7 @@ def phonon_data_to_csv(band_data=False, thermal_data=True, band_file='band.yaml'
                 stream.close()
                 print('Thermal data written to file thermal_data.csv')
         else:
-            raise Exception('The file \'thermal_properties.yaml\' not found. Make sure you are providiing the correct file name to the'
+            raise Exception('The file \'thermal_properties.yaml\' not found. Make sure you are providiing the correct file name to the '
                   'thermal_file parameter in the function')
     if band_data:
         if os.path.exists(band_file):
@@ -109,7 +109,7 @@ def phonon_data_to_csv(band_data=False, thermal_data=True, band_file='band.yaml'
                 stream.close()
                 print('Phonon band structure data written to file band_data.csv')
         else:
-            raise Exception('The file \'band.yaml\' not found. Make sure you are providiing the correct file name to the'
+            raise Exception('The file \'band.yaml\' not found. Make sure you are providiing the correct file name to the '
                   'band_file parameter in the function')
 
 
