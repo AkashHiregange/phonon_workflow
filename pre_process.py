@@ -28,7 +28,8 @@ def make_displaced_supercells(atoms_object, supercell_size:[1,1,1], displacement
     stream = open("phonopy_disp.yaml", 'r')
     dictionary = yaml.load(stream, Loader)
     stream.close()
-    dictionary['phonopy'].update([('calculator', 'aims'), ('configuration', {'create_displacements': '".true."', 'dim': f'"{num1} {num1} {num1}"', 'calculator': '"aims"'})])
+    dictionary['phonopy'].update([('calculator', 'aims'), ('configuration', {'create_displacements': '".true."', 'dim':
+        f'{supercell_size[0]} {supercell_size[1]} {supercell_size[2]}', 'calculator': '"aims"'})])
     # dictionary['physical_unit'].update([('length', '"angstrom"'), ('force_constants', '"eV/angstrom^2"')])
     with open('phonopy_disp.yaml', 'w') as f:
         data = yaml.dump(dictionary, f, sort_keys=False)
