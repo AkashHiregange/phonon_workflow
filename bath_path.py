@@ -69,6 +69,17 @@ def os_commands():
     os.system("phonopy -p -s band.conf")
     os.system("phonopy -p -s thermal.conf")
 
+def phonon_data_to_csv(band_data=False, thermal_data=True, band_file='band.yaml', thermal_file='thermal_properties.yaml'):
+    import yaml
+    from yaml import load
+    from yaml import CLoader as Loader
+    import os
+    import csv
+    if thermal_data:
+        if os.path.exists(thermal_file):
+
+
+
 
 # get_band(atoms)
 # os_commands()

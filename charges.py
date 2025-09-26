@@ -22,9 +22,9 @@ def make_matrix(atoms_object):
     num1 = 1
     num2 = 0.01
 
-    atoms_object.write('geometry.in')
+    atoms_object.write('geometry_eq.in')
     unitcell, optional_structure_info = read_crystal_structure("geometry.in", interface_mode='aims')
-    os.remove('geometry.in')
+    #os.remove('geometry.in')
 
     sup_matrix = np.array([[num1, 0, 0], [0, num1, 0], [0, 0, num1]])
     det = np.round(np.linalg.det(sup_matrix))
