@@ -16,6 +16,7 @@ def make_displaced_supercells(atoms_object, supercell_size:[1,1,1], displacement
     from yaml import CLoader as Loader
 
     sup_matrix = np.diag(supercell_size)
+    print(sup_matrix)
     atoms_object.write('geometry_eq.in')
     unitcell, optional_structure_info = read_crystal_structure("geometry.in", interface_mode='aims')
     det = np.round(np.linalg.det(sup_matrix))
