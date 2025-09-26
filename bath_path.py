@@ -77,6 +77,21 @@ def phonon_data_to_csv(band_data=False, thermal_data=True, band_file='band.yaml'
     import csv
     if thermal_data:
         if os.path.exists(thermal_file):
+            property_list = ['Energy', 'Entropy', 'Helmholtz free Energy', 'Heat Capacity']
+            header = ['Temperature (K)']+property_list
+            csv_file = f'thermal_data.csv'
+            with open(csv_file, mode='w', newline='') as file:
+                writer = csv.writer(file)
+                writer.writerow(header)
+                stream = open(thermal_file, 'r')
+                dictionary = yaml.load(stream, Loader)
+                for data in dictionary['thermal_properties']:
+                    writer.writerow([data['temperature'], data['energy'], data['entropy'], data['free energy'],
+                                     data['heat_capacity']])
+                stream.close()
+                print('Thermal data written to file thermal_data.csv')
+
+
 
 
 
