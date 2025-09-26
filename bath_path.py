@@ -32,8 +32,8 @@ def get_band_conf(atoms):
                 cor2 = lat1.special_points[sp][1]
                 cor3 = lat1.special_points[sp][2]
                 band.append(f'{cor1} {cor2} {cor3}')
-        elif sp == ',':
-            band[-1] = band[-1] + ','
+        # elif sp == ',':
+        #     band[-1] = band[-1] + ','
 
     for i in band_label:
         if i == ',':
