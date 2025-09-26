@@ -77,7 +77,7 @@ def phonon_data_to_csv(band_data=False, thermal_data=True, band_file='band.yaml'
     import csv
     if thermal_data:
         if os.path.exists(thermal_file):
-            property_list = ['Energy', 'Entropy', 'Helmholtz free energy', 'Heat Capacity']
+            property_list = ['Energy (kJ/mol)', 'Entropy (J/K/mol)', 'Helmholtz free energy (kJ/mol)', 'Heat Capacity (J/K/mol)']
             header = ['Temperature (K)']+property_list
             csv_file = f'thermal_data.csv'
             with open(csv_file, mode='w', newline='') as file:
