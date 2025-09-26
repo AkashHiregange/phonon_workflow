@@ -52,7 +52,7 @@ def get_thermal_conf(atoms):
 
 def generate_phonon_data():
     import os
-    os.system("phonopy -f disp-*/aims.out")
+    os.system("phonopy -f disp-?/aims.out")
     os.system("phonopy -p -s band.conf")
     os.system("phonopy -p -s thermal.conf")
 

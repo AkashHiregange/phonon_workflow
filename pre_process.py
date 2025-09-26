@@ -72,7 +72,7 @@ def creating_files_and_directories(atoms_object, supercells, charges, moments):
         atoms = read(f"geometry_{ind+1:03}.in")
         atoms.set_initial_charges(charges)
         atoms.set_initial_magnetic_moments(moments)
-        directory = f"disp_{ind+1:03}"
+        directory = f"disp-{ind+1:03}"
         parent_dir = os.getcwd()
         path_final = os.path.join(parent_dir, directory)
         if os.path.exists(path_final):
