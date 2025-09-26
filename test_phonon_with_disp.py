@@ -11,7 +11,46 @@ import os
 import shutil
 from phonopy.interface.calculator import read_crystal_structure, write_crystal_structure
 
+def make_displaced_supercells(atoms_object, supercell_size:[1,1,1], displacement: 0.01):
 
+    '''
+
+    :param atoms_object:
+    :return:
+    '''
+    import numpy as np
+    from phonopy import Phonopy
+    from phonopy.structure.atoms import PhonopyAtoms
+    import os
+    import shutil
+    from phonopy.interface.calculator import read_crystal_structure, write_crystal_structure
+    import yaml
+    from yaml import load
+    from yaml import CLoader as Loader
+
+    num1 = 1
+    sup_matrix = np.diag(supercell_size)
+    # print(sup_matrix.shape)
+    # sup_matrix = np.array([[num1, 0, 0], [0, num1, 0], [0, 0, num1]])
+    # print(sup_matrix.shape)
+    atoms_object.write('geometry_eq.in')
+    unitcell, optional_structure_info = read_crystal_structure("geometry_eq.in", interface_mode='aims')
+    det = np.round(np.linalg.det(sup_matrix))
+    phonon = Phonopy(unitcell, supercell_matrix=sup_matrix)
+
+    phonon.generate_displacements(distance=displacement)
+    supercells = phonon.supercells_with_displacements
+    phonon.save('phonopy_disp.yaml')
+    stream = open("phonopy_disp.yaml", 'r')
+    dictionary = yaml.load(stream, Loader)
+    stream.close()
+    dictionary['phonopy'].update([('calculator', 'aims'), ('configuration', {'create_displacements': '".true."', 'dim':
+        f'"{supercell_size[0]} {supercell_size[1]} {supercell_size[2]}"', 'calculator': '"aims"'})])
+    # dictionary['physical_unit'].update([('length', '"angstrom"'), ('force_constants', '"eV/angstrom^2"')])
+    with open('phonopy_disp.yaml', 'w') as f:
+        data = yaml.dump(dictionary, f, sort_keys=False)
+
+    return det, supercells
 
 def make_matrix(atoms_object):
     '''
@@ -99,7 +138,7 @@ def creating_files_and_directories(atoms_object, charges, moments):
 
 crys = bulk('Al', 'fcc', a=4.121, cubic=True)
 
-det, supercells = make_matrix(crys)
+det, supercells = make_displaced_supercells(crys, [1,1,1], 0.01)
 moments, charges = get_charges_and_moments(det,crys)
 print(moments)
 

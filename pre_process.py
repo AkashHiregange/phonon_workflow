@@ -18,7 +18,7 @@ def make_displaced_supercells(atoms_object, supercell_size:[1,1,1], displacement
     sup_matrix = np.diag(supercell_size)
     print(sup_matrix.shape)
     atoms_object.write('geometry_eq.in')
-    unitcell, optional_structure_info = read_crystal_structure("geometry.in", interface_mode='aims')
+    unitcell, optional_structure_info = read_crystal_structure("geometry_eq.in", interface_mode='aims')
     det = np.round(np.linalg.det(sup_matrix))
     phonon = Phonopy(unitcell, supercell_matrix=sup_matrix)
 
@@ -60,6 +60,11 @@ def creating_files_and_directories(atoms_object, supercells, charges, moments):
     :return:
     '''
 
+
+    import os
+    import shutil
+    from phonopy.interface.calculator import read_crystal_structure, write_crystal_structure
+    from ase.io import read, write
     chem_sym = atoms_object.get_chemical_symbols()
     for ind, sup in enumerate(supercells):
         write_crystal_structure(f"geometry_{ind+1:03}.in", supercells[ind], interface_mode='aims')
