@@ -90,6 +90,30 @@ def phonon_data_to_csv(band_data=False, thermal_data=True, band_file='band.yaml'
                                      data['heat_capacity']])
                 stream.close()
                 print('Thermal data written to file thermal_data.csv')
+        else:
+            raise('The file \'thermal_properties.yaml\' not found. Make sure you are providiing the correct file name to the'
+                  'thermal_file parameter in the function')
+    if band_data:
+        if os.path.exists(band_file):
+            csv_file = f'band_data.csv'
+            with open(csv_file, mode='w', newline='') as file:
+                stream = open(band_file, 'r')
+                dictionary = yaml.load(stream, Loader)
+                freqencies_header = [f'frequency {i+1}' for i in range(len(dictionary['phonon'][0]['band']))]
+                header = ['q-position[0]', 'q-position[1]', 'q-position[2]', 'Distance']+freqencies_header
+                writer = csv.writer(file)
+                writer.writerow(header)
+                for key in dictionary['phonon']:
+                    row = [key['q-position'][i] for i in range(3)]+[key['distance']]+[j['frequency']for j in key['band']]
+                    writer.writerow(row)
+                stream.close()
+                print('Phonon band structure data written to file band_data.csv')
+        else:
+            raise('The file \'band.yaml\' not found. Make sure you are providiing the correct file name to the'
+                  'band_file parameter in the function')
+
+
+
 
 
 
