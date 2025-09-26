@@ -1,4 +1,4 @@
-def make_matrix(atoms_object, supercell_size:[1,1,1], displacement: 0.01):
+def make_displaced_supercells(atoms_object, supercell_size:[1,1,1], displacement: 0.01):
 
     '''
 
