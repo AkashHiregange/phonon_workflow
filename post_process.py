@@ -18,8 +18,6 @@ def get_band_conf(atoms):
                 cor2 = lat1.special_points[sp][1]
                 cor3 = lat1.special_points[sp][2]
                 band.append(f'{cor1} {cor2} {cor3}')
-        # elif sp == ',':
-        #     band[-1] = band[-1] + ','
 
     for i in band_label:
         if i == ',':
@@ -41,10 +39,9 @@ def get_band_conf(atoms):
             f'BAND_LABELS = {band_label_final}\n'
             f'BAND_POINTS = 101\n')
     f.close()
-    # f.write(f'TPROP =.TRUE.\n'
-    #         f'MESH = 16 16 16\n')
 
-def get_thermal_conf(atoms):
+
+def get_thermal_conf():
     f = open('thermal.conf', 'w')
     f.write(f'TPROP =.TRUE.\n'
             f'MESH = 16 16 16\n')
@@ -78,8 +75,8 @@ def phonon_data_to_csv(band_data=False, thermal_data=True, band_file='band.yaml'
                 stream.close()
                 print('Thermal data written to file thermal_data.csv')
         else:
-            raise Exception('The file \'thermal_properties.yaml\' not found. Make sure you are providiing the correct file name to the '
-                  'thermal_file parameter in the function')
+            raise Exception('The file \'thermal_properties.yaml\' not found. Make sure you are providing the correct '
+                            'file name to the thermal_file parameter in the function')
     if band_data:
         if os.path.exists(band_file):
             csv_file = f'band_data.csv'
@@ -96,5 +93,5 @@ def phonon_data_to_csv(band_data=False, thermal_data=True, band_file='band.yaml'
                 stream.close()
                 print('Phonon band structure data written to file band_data.csv')
         else:
-            raise Exception('The file \'band.yaml\' not found. Make sure you are providiing the correct file name to the '
-                  'band_file parameter in the function')
+            raise Exception('The file \'band.yaml\' not found. Make sure you are providing the correct file name to '
+                  'the band_file parameter in the function')
