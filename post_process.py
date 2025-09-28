@@ -1,4 +1,26 @@
 def get_band_conf(atoms):
+    """
+    Generate the band structure configuration (band.conf file) for a given atomic structure.
+    The band.conf file is necessary to generate a phonon bandstructure once the force set are collected.
+
+    Parameters
+    ----------
+    atoms : ase.Atoms
+        structure of the unit cell as ase.Atoms object to generate the high symmetry points in the reciprocal space.
+
+    Returns
+    -------
+    None
+    Generates a band.conf file in the working directory that will be required for further post-processing.
+
+    Notes
+    -----
+    - This function serves as a helper to prepare configuration file to generate the phonon bandstructure.
+    - The exact k-path convention may depend on the crystal system
+
+    """
+
+
     lat1 = atoms.cell.bandpath()
     band_label = []
     band = []
