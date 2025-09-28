@@ -1,10 +1,27 @@
 def make_displaced_supercells(atoms_object, supercell_size:[1,1,1], displacement: 0.01):
+    """ Generate supercells with small atomic displacements for phonon calculations using the finite-displacement method.
 
-    '''
+    Parameters ----------
+    atoms_object : ase.Atoms
+        An ASE `Atoms` object that defines the unit cell and atomic positions.
+    supercell_size : list of int
+        The supercell expansion along each lattice vector, given as a list of three integers [nx, ny, nz].
+        Default is [1, 1, 1], i.e. no expansion.
+    displacement : float
+        Magnitude of the Cartesian displacement (in Å) applied. Default is 0.01 Å.
 
-    :param atoms_object:
-    :return:
-    '''
+    Returns -------
+
+    Determinant of the supercell (i,e volume of the supercell w.r.t ot the unit cell provided). This is need so that
+    the moments and charges are correctly appended to the supercell atoms.
+
+    A list of supercell displaced structures as a phonopy supercell object. The number of displaced structures depends
+    on the symmetry of the unit cell.
+
+    Notes ----- This function is commonly used in finite-displacement phonon calculations, where forces from displaced
+    supercells are combined to build the dynamical matrix. """
+
+
     import numpy as np
     from phonopy import Phonopy
     from phonopy.interface.calculator import read_crystal_structure
