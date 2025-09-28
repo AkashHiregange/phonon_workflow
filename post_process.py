@@ -64,6 +64,28 @@ def get_band_conf(atoms):
 
 
 def get_thermal_conf():
+    """
+    Generate the thermal properties configuration (thernal.conf file)
+    The thermal.conf file is necessary to generate a thermal properties data once the force set are collected and the
+    phonon bandstructure is generated.
+
+    Parameters
+    ----------
+    None
+
+    Returns
+    -------
+    None
+    Generates a thermal.conf file in the working directory that will be required for further post-processing.
+
+    Notes
+    -----
+    - This function serves as a helper to prepare configuration file to generate the thermal property data like
+    energy, entropy, Helmholtz free energy and heat capacity.
+    - NOTE: currently the temperature range is from 0 to 1000 K. For a majority of systems, the range is sufficient to
+    understand the thermal properities. Future development may allow for custom range.
+
+    """
     f = open('thermal.conf', 'w')
     f.write(f'TPROP =.TRUE.\n'
             f'MESH = 16 16 16\n')
