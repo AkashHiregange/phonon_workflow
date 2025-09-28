@@ -51,6 +51,28 @@ def make_displaced_supercells(atoms_object, supercell_size:[1,1,1], displacement
 
 
 def get_charges_and_moments(determinant, atoms_object):
+    """
+    The function extracts the charges and moments of atoms from the unit cell Atoms object and then generates a list of
+    charges and moments for the supercell. The determinant obtained from make_displaced_supercells function is used
+    here to make sure the charges and moments in the appended in the right order.
+
+    Parameters
+    ----------
+    determinant : int
+        determinant of the supercell matrix obtained from the make_displaced_supercells function.
+    atoms_object : ase.Atoms
+        Atomic structure providing element types, positions, and unit cell
+        information.
+
+    Returns
+    -------
+    moments : list
+        list of magnetic moments on atoms of the supercell
+    charges : list
+        list of charges on atoms of the supercell
+
+    """
+
     charges_sup = []
     moments_sup = []
 
