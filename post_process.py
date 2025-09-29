@@ -140,7 +140,42 @@ def generate_phonon_data(bandstructure=True, thermal_properties=True):
                 os.system("phonopy -p -s band.conf")
                 os.system("phonopy -p -s thermal.conf")
 
-def phonon_data_to_csv(band_data=False, thermal_data=True, band_file='band.yaml', thermal_file='thermal_properties.yaml'):
+
+def phonon_data_to_csv(band_data=False, thermal_data=True,
+                       band_file='band.yaml', thermal_file='thermal_properties.yaml'):
+    """
+    Convert phonon calculation results from YAML files into CSV format.
+
+    Parameters
+    ----------
+    band_data : bool, optional
+        If True, parse phonon band structure data from `band_file` (needs to be .yaml) and
+        export it to a CSV file. Default is False.
+    thermal_data : bool, optional
+        If True, parse phonon thermal property data from `thermal_file` (needs to be .yaml) and
+        export it to a CSV file. Default is True.
+    band_file : str, optional
+        Path to the YAML file containing phonon band structure data.
+        Default is 'band.yaml'.
+    thermal_file : str, optional
+        Path to the YAML file containing thermal property data.
+        Default is 'thermal_properties.yaml'.
+
+    Returns
+    -------
+    None
+        The function writes CSV files to disk and does not return any value.
+
+    Notes
+    -----
+    - The band structure YAML file (e.g., produced by Phonopy) typically
+      contains q-points and frequencies
+    - The thermal properties YAML file contains temperature-dependent
+      quantities such as free energy, entropy, and heat capacity.
+    - The resulting CSV files are formatted for easy plotting or further
+      numerical analysis with standard tools.
+    """
+
     import yaml
     from yaml import load
     from yaml import CLoader as Loader
