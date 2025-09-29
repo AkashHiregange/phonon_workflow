@@ -129,7 +129,7 @@ def generate_phonon_data(bandstructure=True, thermal_properties=True):
     the code will run the bandstructure command automatically to avoid any errors.
     """
     import os
-    os.system("phonopy -f disp-?/aims.out")
+    os.system("phonopy -f disp-*/aims.out")
     if bandstructure:
         os.system("phonopy -p -s band.conf")
         if thermal_properties:
