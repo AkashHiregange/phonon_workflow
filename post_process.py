@@ -91,7 +91,42 @@ def get_thermal_conf():
             f'MESH = 16 16 16\n')
     f.close()
 
-def generate_phonon_data():
+
+def generate_phonon_data(bandstructure=True, thermal_properties=True):
+    """
+    Generate phonon-related data such as phonon band structures and
+    thermodynamic properties.
+
+    Parameters
+    ----------
+    bandstructure : bool, optional
+        If True (default), compute the phonon band structure along a chosen
+        high-symmetry path in the Brillouin zone using the information available in the band.conf file obtained from
+        get_band_conf function.
+
+    thermal_properties : bool, optional
+        If True (default), compute thermodynamic quantities derived from the phonon density of states (DOS), such as
+        free energy, entropy, and heat capacity as a function of temperature. This needs the thermal.conf file
+        generated using the get_thermal_conf function.
+
+    Returns
+    -------
+    None.
+
+    Runs the terminal commands and generates the following files:
+    FORCE_SETS -- force information obtained using the phonopy API. This is needed for all post-processing of data
+    band.pdf -- phonon band structure
+    band.yaml -- phonon band structure data as yaml file. use the phonon_data_to_csv to obtain the data as a csv file
+    thermal.pdf -- thermal properties plotted as a function of temperature
+    thermal_properites.yaml - thermal properties data as yaml file. use the phonon_data_to_csv to obtain the data as a
+    csv file
+
+
+    Notes
+    -----
+    To obtain the thermal properities, it is necessary to keep the paramter bandstructure=True, because thermal
+    properties are derived from phonon density of states (DOS).
+    """
     import os
     os.system("phonopy -f disp-?/aims.out")
     os.system("phonopy -p -s band.conf")
