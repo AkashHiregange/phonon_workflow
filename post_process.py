@@ -125,12 +125,20 @@ def generate_phonon_data(bandstructure=True, thermal_properties=True):
     Notes
     -----
     To obtain the thermal properities, it is necessary to keep the paramter bandstructure=True, because thermal
-    properties are derived from phonon density of states (DOS).
+    properties are derived from phonon density of states (DOS). In that case, if thermal_properties=True and bandstructure=False,
+    the code will run the bandstructure command automatically to avoid any errors.
     """
     import os
     os.system("phonopy -f disp-?/aims.out")
-    os.system("phonopy -p -s band.conf")
-    os.system("phonopy -p -s thermal.conf")
+    if bandstructure:
+        os.system("phonopy -p -s band.conf")
+        if thermal_properties:
+            os.system("phonopy -p -s thermal.conf")
+    else:
+        if not bandstructure:
+            if thermal_properties:
+                os.system("phonopy -p -s band.conf")
+                os.system("phonopy -p -s thermal.conf")
 
 def phonon_data_to_csv(band_data=False, thermal_data=True, band_file='band.yaml', thermal_file='thermal_properties.yaml'):
     import yaml
