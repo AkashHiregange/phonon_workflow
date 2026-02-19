@@ -1,0 +1,100 @@
+# This is a basic workflow
+name: ci-tests
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the master branch
+on:
+  push:
+    # Just run on main to maintain code quality control
+    branches: [ main ]
+  pull_request:
+    # Run on all pull requests when updated.
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # This allows us to find the workflow in checks
+    name: ci-test
+    
+    # The latest version of ubuntu dropped support for Python 3.7 leading to CI test failure. 
+    # Therefore, need different os versions for different Python versions.
+    # The type of runner that the job will run on
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-22.04
+            python-version: '3.7'
+          - os: ubuntu-24.04
+            python-version: '3.8'
+          - os: ubuntu-24.04
+            python-version: '3.10'
+        
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+    
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    - uses: actions/checkout@main
+    
+    # Ensure we are running Python v3.x
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@main
+      with:
+        python-version: ${{ matrix.python-version }}
+    
+    # Install ASE so we can run our tests 
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        python -m pip install --upgrade ase
+        #Upgrading Catlearn to the most recent version 
+        python -m pip install https://github.com/SUNCAT-Center/CatLearn/archive/refs/heads/master.zip
+        python -m pip install --upgrade ase-gpatom
+        python -m pip install --upgrade pytest
+        python -m pip install --upgrade pytest-cov
+        python -m pip install --upgrade pymatgen
+        python -m pip install --upgrade phonopy
+        # Removing as presumably MACE will automatically install dependencies
+        # python -m pip install torch torchvision torchaudio
+        
+        # Installing different mace versions for different versions of Python as MACE > 0.3.4 fails on Python 3.7
+        if [[ "${{ matrix.python-version }}" == "3.7" ]]; then
+            pip install mace-torch==0.3.4
+        else
+            pip install --upgrade mace-torch
+        fi
+        
+        # Debug
+        python -m pip freeze
+    
+    # Setup Python environment
+    - name: Setup Python environment
+      run: |
+        # This is debug, as setting the Python Path wasn't obvious.
+        # echo $PWD
+        # ls -lrt
+        # env | sort
+        #
+        # This is depreciated. It can be over-ridden with:
+        # echo "ACTIONS_ALLOW_UNSECURE_COMMANDS=true" >> $GITHUB_ENV
+        # echo "::set-env name=PYTHONPATH::/home/runner/work/carmm/carmm"
+        #
+        # Example new implementation from: https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-commands-for-github-actions#environment-files
+        echo "PYTHONPATH=/home/runner/work/carmm/carmm:$PYTHONPATH" >> $GITHUB_ENV
+
+    # Runs a set of commands using the runners shell
+    # Updated to run on pytest so we might be able to export data
+    - name: Run the examples
+      run: |
+        cd examples
+        pytest --cov=../ --cov-report=xml *.py
+
+    # Upload all the data on coverage to CodeCov
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@main
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        files: ./examples/coverage.xml
+        flags: unittests
+    
