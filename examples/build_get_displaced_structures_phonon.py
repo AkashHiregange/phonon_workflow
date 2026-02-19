@@ -9,7 +9,7 @@ sys.path.append("/home/akash/PycharmProjects/phonon_workflow")
 def test_generate_displaced_structures():
     from ase.build import bulk
     import sys
-    from phonon_workflow.pre_process import make_displaced_supercells, get_charges_and_moments, creating_files_and_directories
+    from pre_process import make_displaced_supercells, get_charges_and_moments, creating_files_and_directories
     import os
     crys = bulk('Al', 'fcc', a=4.121, cubic=True)
 

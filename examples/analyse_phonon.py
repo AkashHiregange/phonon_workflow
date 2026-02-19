@@ -10,7 +10,7 @@ def test_phonon_analysis():
     '''
 
     from ase.build import bulk
-    from phonon_workflow.post_process import get_band_conf, get_thermal_conf, generate_phonon_data, phonon_data_to_csv
+    from post_process import get_band_conf, get_thermal_conf, generate_phonon_data, phonon_data_to_csv
     from ase.io import read
     import os
 
