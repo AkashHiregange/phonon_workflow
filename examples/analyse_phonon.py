@@ -13,7 +13,8 @@ def test_phonon_analysis():
     from post_process import get_band_conf, get_thermal_conf, generate_phonon_data, phonon_data_to_csv
     from ase.io import read
     import os
-
+    #print(os.getcwd
+    print(os.listdir())
 
     example_path = 'data/phonon_workflow'
 
