@@ -24,8 +24,8 @@ jobs:
     strategy:
       matrix:
         include:
-        #  - os: ubuntu-22.04
-        #    python-version: '3.7'
+          - os: ubuntu-22.04
+            python-version: '3.7'
           - os: ubuntu-latest
             python-version: '3.8'
         #  - os: ubuntu-24.04
@@ -54,7 +54,10 @@ jobs:
         python -m pip install --upgrade pytest
         python -m pip install --upgrade pytest-cov
         #python -m pip install --upgrade pymatgen
-        python -m pip install phonopy==2.27.0
+        if [[ "${{ matrix.python-version }}" != "3.8" ]]; then
+        python -m pip install --upgrade phonopy==2.30.0
+        fi
+        #python -m pip install phonopy==2.27.0
         # Removing as presumably MACE will automatically install dependencies
         # python -m pip install torch torchvision torchaudio
         

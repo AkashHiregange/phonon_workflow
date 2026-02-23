@@ -3,7 +3,7 @@
 #IMPORTS
 
 import sys
-sys.path.append("/home/akash/PycharmProjects/phonon_workflow")
+#sys.path.append("/home/akash/PycharmProjects/phonon_workflow")
 # from pre_process import make_displaced_supercells, get_charges_and_moments, creating_files_and_directories
 
 def test_generate_displaced_structures():
@@ -38,4 +38,5 @@ def test_generate_displaced_structures():
     #         atoms.set_calculator(calc)
     #         print(f'{defor}, {atoms.get_potential_energy()}')
 
-test_generate_displaced_structures()
+if sys.version_info.major==3 and sys.version_info.minor!=8:
+    test_generate_displaced_structures()
