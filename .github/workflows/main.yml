@@ -55,7 +55,8 @@ jobs:
         python -m pip install --upgrade pytest-cov
         #python -m pip install --upgrade pymatgen
         if [[ "${{ matrix.python-version }}" != "3.8" ]]; then
-        python -m pip install --upgrade phonopy==2.30.0
+        python -m pip install --upgrade phonopy
+        python -m pip install --upgrade yaml
         fi
         #python -m pip install phonopy==2.27.0
         # Removing as presumably MACE will automatically install dependencies
